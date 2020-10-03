@@ -20,7 +20,8 @@ help:
 
 .PHONY: init
 init:
-	bundle install --path .vendor/bundle
+	bundle config set path .vendor/bundle
+	bundle install
 
 .PHONY: html
 html:
