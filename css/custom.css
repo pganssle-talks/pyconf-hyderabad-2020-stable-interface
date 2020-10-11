@@ -500,6 +500,13 @@ img.sbitem {
     font-size: 0px;
 }
 
+.nospace-fragment.fragment:not(.visible):not(.fade-out) {
+    display: none;
+    height: 0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+
 /****************************
  *  HACK
  *
