@@ -480,6 +480,26 @@ img.sbitem {
 }
 
 
+/*################################
+ * Fragments
+ */
+
+/* Custom class for fragments that disappear */
+
+.disappearing-fragment.fragment.fade-out.visible {
+    display: none;
+    height: 0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+
+.disappearing-fragment.fragment:not(.current-fragment):not(.fade-out) {
+    display: none;
+    height: 0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+
 /****************************
  *  HACK
  *
