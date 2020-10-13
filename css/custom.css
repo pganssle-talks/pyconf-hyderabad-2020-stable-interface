@@ -119,6 +119,7 @@ body {
   letter-spacing: normal;
   text-transform: none;
   text-shadow: none;
+  text-align: center;
   word-wrap: break-word; }
 
 .reveal h1 {
@@ -457,6 +458,14 @@ div.output_area {
 div.output_subarea {
   padding: 0px;
   max-width: 100%;
+}
+
+/*#################################
+ * Useful classes
+ */
+
+.not-centered {
+    text-align: left;
 }
 
 /*##################################
