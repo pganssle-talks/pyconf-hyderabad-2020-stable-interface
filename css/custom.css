@@ -433,7 +433,7 @@ img#ghscreenshot {
   padding: 0px 25px;
 }
 
-ul {
+ol, ul {
     width: 95%;
 }
 
