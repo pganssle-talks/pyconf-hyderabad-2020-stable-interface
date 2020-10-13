@@ -527,3 +527,7 @@ code.lang-C {
     font-size: 0.8em;
     line-height: normal;
 }
+
+.emoji {
+    font-family: Noto Color Emoji !important;
+}
