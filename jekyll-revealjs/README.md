@@ -19,7 +19,7 @@ A Jekyll-based framework for creating presentations based on Reveal.js and Markd
 
 If you like [Reveal.js][] for creating your online presentations, like the site management [Jekyll][] gives you and like [Markdown][] because of its easy and clean look, here's an easy way to create a presentation using Jekyll, Markdown and Reveal.js.
 
-See the [example presentation][] created using the contents in this repository and `jekyll build` or `docker-compose up`.
+See the [example presentation][] created using the contents in this repository and `jekyll build`.
 
 ## Howto
 
@@ -36,10 +36,6 @@ Clean the Example presentation:
 After that, add your slides into the `_posts` subdirectory in clean Markdown syntax and you're ready to build your presentation with Jekyll:
 
     jekyll build
-
-If you don’t have Jekyll installed (but you do have Docker) then you can just run the following to build and serve your changes using a container. Hit `ctrl-c` to stop the process.
-
-     docker-compose up
 
 You can even manage multiple presentations using the power of Git. Simply branch from the master branch to create a new presentation:
 
@@ -66,9 +62,7 @@ Jekyll will assume that each post has been made on the first of January, 2001 (w
 
 You can configure almost any reveal.js setting using the `_config.yml` settings file in the root directory.
 
-- `title`: The title of your presentation (displayed in the browser's title bar, optional and defaults to your repository’s name thanks to the `jekyll-github-metadata` plugin)
-- `description`: A description for your presentation (displayed in the HTML head, optional and defaults to your repository’s description thanks to the `jekyll-github-metadata` plugin)
-- `author`: Your name (displayed in the HTML head)
+- `title`: The title of your presentation (displayed in the browser's title bar)
 - `reveal_theme`: The reveal.js-theme to use [default.css]
 - `reveal_transition`: The reveal.js-transition to use [default]
 - `reveal_theme_path`: The path to the reveal.js-theme (can be changed for custom themes) [reveal.js/css/theme/]
@@ -165,16 +159,6 @@ Fragments allow slide elements to come one by one. This is often used in lists t
 - come one by one <fragment/>
 ```
 
-Or, if you find it cleaner, like this:
-
-```markdown
-# Slide
-
-+ This
-+ will
-+ come one by one
-```
-
 ### Slide backgrounds
 
 To modify the background of the current slide, **jekyll-reveal.js** simplifies the syntax to `<background>color</background>`:
@@ -186,23 +170,6 @@ To modify the background of the current slide, **jekyll-reveal.js** simplifies t
 
 This slide has a white background
 ```
-
-#### Image backgrounds
-
-You can also set image backgrounds:
-
-```markdown
-
-# Slide
-
-<backgroundimage>{{ site.github.url }}/images/image.jpg</backgroundimage>
-<backgroundimageopacity>0.25</backgroundimageopacity>
-
-This slide has an image background
-
-```
-
-Note: `{{ site.github.url }}` expands to the URL of your hosted site, but you could also use remote URLs.
 
 ### Speaker notes
 
