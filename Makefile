@@ -17,6 +17,8 @@ help:
 	@echo 'make init            Initialize directory'
 	@echo 'make html            Generate the web site'
 	@echo 'make clean           Clean up generated site'
+	@echo 'make pages           Generate and commit the github-pages site (the '
+	@echo '                     result still needs to be pushed to github).'
 
 .PHONY: init
 init: docs
@@ -30,6 +32,10 @@ html: docs
 .PHONY: serve
 serve: docs
 	$(JEKYLL) serve -w $(OPTS)
+
+.PHONY: pages
+pages: html
+	$(SHELL) scripts/commit_pages.sh
 
 docs:
 	$(SHELL) scripts/make_worktree.sh
