@@ -19,18 +19,20 @@ help:
 	@echo 'make clean           Clean up generated site'
 
 .PHONY: init
-init:
+init: docs
 	bundle config set path .vendor/bundle
 	bundle install
 
 .PHONY: html
-html:
+html: docs
 	$(JEKYLL) build $(OPTS)
 
 .PHONY: serve
-serve:
+serve: docs
 	$(JEKYLL) serve -w $(OPTS)
 
+docs:
+	$(SHELL) scripts/make_worktree.sh
 
 .PHONY: clean
 clean:
