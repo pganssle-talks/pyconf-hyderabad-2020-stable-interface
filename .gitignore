@@ -1,6 +1,7 @@
 _site
 docs/
 docs
+gh_pages/
 
 # Bundle stuff
 .vendor/
