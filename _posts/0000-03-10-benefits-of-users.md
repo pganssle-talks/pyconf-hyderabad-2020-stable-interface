@@ -8,7 +8,8 @@ Given enough eyeballs, all bugs are shallow.
 <img src="images/setuptools-obscure-bug.png"
      alt="An comment on setuptools issue #2129 from jaraco. The text reads: This might be a contender for one of the most obscure bugs I've seen. Not only does it depend on the fact that your last name begins with 'egg' but it also depends on the fact that the egg-prefixed name appears in the last segment of the pathname, and it depends on the fact that you're on Windows, which provides compatibility with the decades-old 8.3 convention. I suspect there's another factor at play too that's causing the 8.3 filename to be used instead of the proper full filename."/>
 
-<span style="font-size: 0.5em">From <a href="https://github.com/pypa/setuptools/issues/2129">`setuptools` issue #2129.</a></span>
+<br/>
+<div class="caption">From <a href="https://github.com/pypa/setuptools/issues/2129"><tt>setuptools</tt> issue #2129.</a></div>
 
 --
 
