@@ -517,6 +517,18 @@ img.sbitem {
 }
 
 /*###################################
+ * Captions
+ */
+
+.caption {
+    font-style: italic;
+}
+
+.caption em {
+    font-style: normal;
+}
+
+/*###################################
  * Quotations
  */
 
