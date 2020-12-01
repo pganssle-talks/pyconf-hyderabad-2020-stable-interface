@@ -8,6 +8,34 @@ will be depended on by somebody.
 
 --
 
+<img src="images/bpo-37500-no-longer-optimized.png"
+     alt="bugs.python.org issue #37500, where in if 0: is no longer optimized"
+     />
+
+--
+
+<blockquote class="callout" style="font-size: 1.25em">
+The real-word implications from my world are this: if your code has "if 0:" clauses in it, and you measure its coverage, then because the lines have not been optimized away, coverage.py will think the lines are a possible execution path, and will be considered a miss because they are not executed.  This will reduce your coverage percentage.
+<footer>Ned Batchelder, <a href="https://bugs.python.org/issue37500#msg347362">bpo-37500</a></footer>
+</blockquote>
+
+<br/>
+
+```python
+def f() -> int:
+    if 0:
+        print("This code is unreachable!")
+
+    if not __debug__:
+        print("Running in optimized mode!")
+
+    return 3
+```
+
+<div class="caption">This code would have 100% coverage prior to the change, but less than 100% coverage afterwards.</div>
+
+--
+
 # Packaging in Python: A Tale of Woe
 <br/>
 
