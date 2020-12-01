@@ -11,6 +11,8 @@
 - `gathering-storm.jpg`: [20120726 gathering storm](https://www.flickr.com/photos/84175980@N00/7699140874) by [schizoform](https://www.flickr.com/photos/84175980@N00) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - `bunker-entrance.jpg`: [Regan Vest, Main entrance to secret bunker](https://www.flickr.com/photos/22359271@N04/8543511689) by [Morten Jensen](https://www.flickr.com/photos/morten812/) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - `piggy-bank.jpg`: [Smashed Piggy Bank](https://www.flickr.com/photos/59937401@N07/5857476157) by [Images_of_Money](https://www.flickr.com/photos/59937401@N07/) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) (though the description seems to indicate that the image is in the public domain, and originated at a now-defunct website taxrebate.org.uk).
+- `monkey-00.jpg`: [Monkey](https://www.flickr.com/photos/130732751@N03/16615120856) by [samuelrodgers752](https://www.flickr.com/photos/130732751@N03) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+- `monkey-01.jpg`: [Monkey](https://www.flickr.com/photos/130732751@N03/16639625811) by [samuelrodgers752](https://www.flickr.com/photos/130732751@N03) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
 
 
 ## Public Domain or CC-0
