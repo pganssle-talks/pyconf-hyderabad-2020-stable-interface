@@ -1,5 +1,9 @@
 <span style="font-size: 4em; font-weight: bold">✨ My Trip to Hyderabad ✨</span>
 
+Notes:
+
+I hope the organizers aren't starting to regret giving me an hour to pontificate on whatever I want at this point, but hopefully it'll be entertaining.
+
 --
 
 <img src="images/plane-ride.webp"
@@ -9,6 +13,12 @@
      />
 
 <div class="caption">Always bring a book on an 18 hour flight...</div>
+
+Notes:
+
+Obviously going to conferences isn't all fun and games and Hyderabad is 18 hours away. I wouldn't want to miss out on that experience!
+
+You can't see it here, but since I do have a 2-year-old in my house, I was able to accurately simulate the experience of a toddler on the plane screaming and kicking the back of your seat as well.
 
 --
 
@@ -22,7 +32,7 @@
 
 <div class="caption fragment disappearing-fragment nospace-fragment fade-out"
      data-fragment-index="0">
-     First thing to do in Hyderabad: get a biryani!
+     The famous Hyderabad biryani
  </div>
 
 
@@ -38,6 +48,10 @@
      data-fragment-index="0">
      Delicious! Plus it only took 4 minutes to cook!
  </div>
+
+Notes:
+
+Once I landed in Hyderabad, obviously the first thing to do was to get a biryani, since everyone keeps telling me how great it is. Gotta say, I love that authentic biryani taste. Plus, (advance to second image), it's nice that they only take 4 minutes to cook!
 
 --
 
@@ -65,8 +79,12 @@
 <div class="caption fragment disappearing-fragment nospace-fragment fade-in"
      id="splash"
      data-fragment-index="0">
-     15 minutes later
+     (15 minutes later)
  </div>
+
+Notes:
+
+Now I'm not much of a sports guy, but I figured the best way to fit in with the locals would be to watch a cricket match. Unfortunately, those games are just too long for me. (Advance to second image) Couldn't quiiiite make it through a whole match.
 
 --
 
@@ -94,3 +112,12 @@
      data-fragment-index="0">
      Had to substitute some ingredients, though...
  </div>
+
+ Notes:
+
+Of course, I've been told that Hyderabad is called the City of Nawabs and Kebabs, so you know food is going to feature prominently in any good conference, so I thought I'd make some famous Hyderabadi haleem.
+
+Of course, I didn't have exactly have all the right ingredients or like... a recipe, so I had to get a little creative, but based on a google image search, I'm pretty sure my version is pretty close to what I would have gotten in Hyderabad. Pretty good!
+
+Well, with those experiences under my belt, I feel like I'm now adequately prepared to talk about, you know, programming and stuff.
+
