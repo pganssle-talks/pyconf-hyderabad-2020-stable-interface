@@ -3,7 +3,7 @@ set -e
 
 WORKTREE_LOCATION="docs"
 PRIMARY_BRANCH="master"
-HOME="$(pwd)"
+ROOT="$(pwd)"
 
 # If no changes are necessary, we don't have to check the error conditions
 cd "${WORKTREE_LOCATION}"
@@ -11,7 +11,7 @@ if [ -z "$(git status --porcelain)" ]; then
     echo "No changes to commit"
     exit 0
 fi
-cd "${HOME}"
+cd "${ROOT}"
 
 # First ensure that we're working on the primary source branch
 CURRENT_BRANCH="$(git symbolic-ref --short -q HEAD)"
