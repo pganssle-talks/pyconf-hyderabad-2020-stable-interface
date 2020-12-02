@@ -2,6 +2,7 @@ _site
 docs/
 docs
 gh_pages/
+unused/
 
 # Bundle stuff
 .vendor/
