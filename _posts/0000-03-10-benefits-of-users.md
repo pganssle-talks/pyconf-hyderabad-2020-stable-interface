@@ -57,7 +57,7 @@ The user was able to work around this by changing the name of his temporary fold
 >>> f()
 Hello
 ```
-<!-- .element: class="fragment"  style="max-width: 60%"-->
+<!-- .element: class="fragment"  style="max-width: 60%; border: solid 1px"-->
 
 Notes:
 
@@ -74,6 +74,20 @@ The thing about this kind of bug, though, is that really the only people who not
 <img src="images/bpo-35364-fromtimestamp-ignores-inheritance.png"
      alt="bugs.python.org issue #35364, wherein fromtimestamp() ignores inheritance if the time zone specified is not None"
      />
+
+```python
+>>> from datetime import datetime, timedelta, timezone
+>>> class DatetimeSubclass(datetime): pass
+...
+
+>>> DatetimeSubclass.fromtimestamp(1607167800.0)
+DatetimeSubclass(2020, 12, 5, 6, 30)
+
+>>> DatetimeSubclass.fromtimestamp(1607167800.0, timezone.utc)
+datetime.datetime(2020, 12, 5, 11, 30, tzinfo=datetime.timezone.utc)
+```
+<!-- .element: class="fragment" style="max-width: 60%; border: solid 1px" -->
+
 
 
 Notes:
