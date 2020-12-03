@@ -24,6 +24,24 @@
 
 --
 
+# Provisional interfaces
+
+<div style="display: flex; flex-direction: column;">
+
+<img src="images/asyncio-provisional.png"
+     alt="The asyncio module was considered provisional in Python 3.5"
+     />
+
+<img src="images/pep484-type-hints.png"
+     alt="PEP 484: Type Hints, which was created in September 2014 but is still Provisional"
+     />
+
+<div class="caption">Marking an interface as provisional is a variation on pre-releases.</div>
+
+</div>
+
+--
+
 # Deprecations
 
 <img src="images/easy_install_deprecated.png"
@@ -68,32 +86,6 @@ setuptools 39.0.1
 
 --
 
-# Provisional interfaces
-
-<div class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0"
-     style="display: flex; flex-direction: column;">
-
-<img src="images/asyncio-provisional.png"
-     alt="The asyncio module was considered provisional in Python 3.5"
-     />
-
-<img src="images/pep484-type-hints.png"
-     alt="PEP 484: Type Hints, which was created in September 2014 but is still Provisional"
-     />
-
-<div class="caption">Marking an interface as provisional is a variation on pre-releases.</div>
-
-</div>
-
-<div class="fragment disappearing-fragment nospace-fragment fade-in" data-fragment-index="0">
-<img src="images/deprecated-provisional.jpg"
-     alt="An illustration of two men with the caption, 'Sure it's deprecated, but at least it's not provisional!'"
-     style="height: 800px"
-     />
-
-</div>
-
---
 
 <div style="font-size: 5em; font-weight: bold"
      class="fragment fade-out disappearing-fragment nospace-fragment"

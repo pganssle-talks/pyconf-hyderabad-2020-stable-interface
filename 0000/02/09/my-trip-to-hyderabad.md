@@ -119,5 +119,6 @@ Of course, I've been told that Hyderabad is called the City of Nawabs and Kebabs
 
 Of course, I didn't have exactly have all the right ingredients or like... a recipe, so I had to get a little creative, but based on a google image search, I'm pretty sure my version is pretty close to what I would have gotten in Hyderabad. Pretty good!
 
-Well, with those experiences under my belt, I feel like I'm now adequately prepared to talk about, you know, programming and stuff.
+OK, but in all seriousness, I appreciate you all bearing with me as I try and come to terms with the fact that I don't get to be there in person with y'all, and experience your culture and your city for real. Obviously, oatmeal and food coloring is not a real substitute for authentic haleem, and despite the 18-hour plane ride, I fully intend to get out there one day in person.
 
+But now that we've hopefully exorcised some of our frustrations with the current pandemic environment, I think  we're ready to get on with the actual business of talking about, you know, programming and stuff.

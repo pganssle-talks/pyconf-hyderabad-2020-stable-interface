@@ -57,7 +57,7 @@ The user was able to work around this by changing the name of his temporary fold
 >>> f()
 Hello
 ```
-<!-- .element: class="fragment"  style="max-width: 60%"-->
+<!-- .element: class="fragment"  style="max-width: 60%; border: solid 1px"-->
 
 Notes:
 
@@ -74,6 +74,20 @@ The thing about this kind of bug, though, is that really the only people who not
 <img src="images/bpo-35364-fromtimestamp-ignores-inheritance.png"
      alt="bugs.python.org issue #35364, wherein fromtimestamp() ignores inheritance if the time zone specified is not None"
      />
+
+```python
+>>> from datetime import datetime, timedelta, timezone
+>>> class DatetimeSubclass(datetime): pass
+...
+
+>>> DatetimeSubclass.fromtimestamp(1607167800.0)
+DatetimeSubclass(2020, 12, 5, 6, 30)
+
+>>> DatetimeSubclass.fromtimestamp(1607167800.0, timezone.utc)
+datetime.datetime(2020, 12, 5, 11, 30, tzinfo=datetime.timezone.utc)
+```
+<!-- .element: class="fragment" style="max-width: 60%; border: solid 1px" -->
+
 
 
 Notes:
@@ -111,23 +125,16 @@ And the same thing will happen to the programs you write when they hit your user
      style="height: 800px"
      />
 
-<img src="external-images/fair-use/dog-on-house.jpg"
-     alt="Text on top reads 'Don't worry, it's super intuitive, the user will know how to use it.' Below that there is a picture of a dog laying sideways on top of the slanted roof of an empty dog house. The dog is labeled 'The user'"
-     class = "fragment nospace-fragment fade-in-and-out disappearing-fragment"
-     data-fragment-index="0"
-     style="height:600px"
-     />
-
 <img src="external-images/fair-use/licking-cup.gif"
      alt="An animated image of a cartoon man trying to drink from the bottom of a cup, then lick the side of it, then drink from it without his arms, all failing to get any water in a comedic way"
      class = "fragment nospace-fragment fade-in disappearing-fragment"
-     data-fragment-index="1"
+     data-fragment-index="0"
      style="height: 600px"
      />
 
 Notes:
 
-The general idea behind these memes is that no matter how well you design your program, your users will do horrible things to it. They'll drill holes in your product and use it as a bong. They'll use it in the least efficient way possible, like these cats. Or like this dog, they'll see the roof your lovingly crafted doghouse and say, "Oh man, I love this bed!"
+The general idea behind these memes is that no matter how well you design your program, your users will do horrible things to it. They'll drill holes in your product and use it as a bong. They'll use it in the least efficient way possible, like these cats.
 
 Or, like this guy, they'll seem to do everything *except* use your product as intended. I think sometimes the undercurrent is, "look how stupid our users are", but I prefer to see them as saying, "We should be humble about our ability to understand and predict our users' needs, because they'll often surprise us.
 
