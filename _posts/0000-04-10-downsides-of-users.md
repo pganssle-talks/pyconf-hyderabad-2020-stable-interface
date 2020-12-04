@@ -14,6 +14,17 @@ This is Hyrum's Law, which is something I bring up very frequently in design dis
 
 What this means, basically, is that, frequently, your bugs end up as "load-bearing bugs", and people start depending on behaviors that, were you designing them from scratch, would be considered bugs.
 
+--
+
+<img src="images/excel.png"
+     alt="A screenshot of Excel indicating that 1900-02-28 is stored as 59, and 1900-03-01 is stored as 61"
+     id="splash"
+     />
+
+<div class="caption">1900 is not a leap year</div>
+
+Notes:
+
 For example, Joel Spolsky has a blog post called ["My First BillG review"](https://www.joelonsoftware.com/2006/06/16/my-first-billg-review/) where he explains that there's a peculiarity in the way Excel and Visual Basic handle datetime offsets — Excel uses January 1, 1900 as its "epoch" and Visual Basic uses December 31st, 1899, but for modern dates, the "offset from epoch" is always the same. It turns out that the reason for this is that Excel has a bug where it considers 1900 a leap year, but that this bug was not only not fixed but also *intentionally introduced* so that Excel could be compatible with Lotus 123 spreadsheets, which also had the same bug. Presumably the odd choice of epoch for Visual Basic was also made so that Visual Basic could be both correct for pre-1900 dates and also compatible with Excel for modern dates.
 
 This is the flip side of having a large number of users — backwards compatibility concerns tend to dramatically curtail the available options you have for changing your interface.
