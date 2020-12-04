@@ -20,7 +20,7 @@ I think there's another reasonable way to interpret this, though, and it's one t
 <br/>
 
 <ul>
-<li class="fragment">User's name is Adrian Eggenberger, so his username is <tt>a.eggenberger</tt></li>
+<li class="fragment">User's name is A. Eggenberger, so his username is <tt>a.eggenberger</tt></li>
 <li class="fragment">Default temporary folder is <tt>C:\Users\A9447~1.EGG</tt></li>
 <li class="fragment"><tt>pkg_resources</tt> considers a folder to be an "egg" if its name ends in <tt>.egg</tt></li>
 </ul>
@@ -38,7 +38,15 @@ It turns out that this is a *razor thin* edge case, which depended on:
 - The fact that Windows was using some weird old compatibility interface to name its temporary folders.
 - The USER'S LAST NAME.
 
-You see, the user's name is Adrian Eggenberger and his username is `a.eggenberger` — I'm not sure which of these two related facts is the relevant one, but the consequence is that the default name of his temporary folder was this weird thing using the old 8.3 convention, where files and folders could only have 8 letters, followed by a dot, followed by a 3-letter extension. Because his last name is Eggenberger, that folder name ended with `.EGG`, which was, coincidentally, an extension that `pkg_resources` was using the detect whether it was currently in a Python "egg" package. Since his temporary folder is not actually an egg package, this caused `pkg_resources` to fail with an error.
+You see, the user's name is A. Eggenberger and his username is `a.eggenberger` — I'm not sure which of these two related facts is the relevant one, but the consequence is that the default name of his temporary folder was this weird thing using the old 8.3 convention, where files and folders could only have 8 letters, followed by a dot, followed by a 3-letter extension. Because his last name is Eggenberger, that folder name ended with `.EGG`, which was, coincidentally, an extension that `pkg_resources` was using the detect whether it was currently in a Python "egg" package. Since his temporary folder is not actually an egg package, this caused `pkg_resources` to fail with an error.
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+What's unusual about this situation is that we heard about it.
+</span>
+
+Notes:
 
 The user was able to work around this by changing the name of his temporary folder, and Jason fixed the bug with some better egg detection routines, but you can imagine there are probably similar bugs lurking around out there all over the place, just waiting to frustrate people to no end. What's unusual about this situation is that we heard about it.
 
@@ -67,6 +75,15 @@ This one was a fairly benign one, which is probably why it took so long to get f
 
 This bug is caused because during the first step — when the bytecode is compiled — it also goes through an optimization step, and if you use `if 0` or `while False` or any other sort of conditional with a literal false value, the optimizer knows that it's dead code and simply removes it — it emits no byte code, and as such it misses that second check for syntactic validity.
 
+--
+
+
+<span style="font-size: 3.5em; font-weight: bold">
+Some bugs only show up once you've built an ecosystem.
+</span>
+
+Notes:
+
 The thing about this kind of bug, though, is that really the only people who noticed it were people trying to implement their own versions of Python, or other rather abstruse things that depend on Python having such a large number of people that it would make sense for two people to implement the same protocol, or to build the other kinds of things — parsers, linters, code formatters, etc — where you'd actually notice this kind of thing.
 
 --
@@ -88,8 +105,6 @@ datetime.datetime(2020, 12, 5, 11, 30, tzinfo=datetime.timezone.utc)
 ```
 <!-- .element: class="fragment" style="max-width: 60%; border: solid 1px" -->
 
-
-
 Notes:
 
 One last example from CPython is this bug. The problem here was that if you  made a subclass of the `datetime.datetime` class and called `fromtimestamp()` it would return an instance of your subclass, as you'd expect, but if you passed it any sort of time zone object, like `datetime.timezone.utc`, it would return a plain `datetime.datetime` object.
@@ -98,7 +113,16 @@ This was happening because `.fromtimestamp()` uses datetime arithmetic if it nee
 
 This is another one of those things that only happens when you get enough users, because it's only once the audience gets large enough that you have niche users for whom the standard library `datetime` class doesn't quite work, or when the audience for Python programs gets big enough that it would make sense to provide a third-party library that inherits from `datetime`, but in this case there are other implications, because it turns out that at least some of these bugs were actually *deliberate design decisions* — in the standard library at least, they don't assume that subclasses must implement a constructor taking the same arguments as the base class, and the solution to this is that any methods that need to return an instance of the class itself will always return an instance of the base class.
 
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Perfect prediction is impossible.
+</span>
+
+Notes:
+
 But what I've found, at least in the case of `datetime`, is that people find it *really annoying* to re-implement the base class's entire interface just to make sure their subclass's type is persistent, and they don't actually seem to care when you call the class constructor as if it's the base class. This is just one particularly unusual manifestation of a wider problem that people were constantly reporting (or working around), but in all the time we've had interfaces that return instances of the subclass, I've only ever seen one class broken by it, and that was fairly easy to work around.
+
 
 The people who originally designed Python and this system in general are extremely careful thinkers, and have exquisite design sensibilities. They got an enormous amount right, but they didn't predict that this would be a usability concern from their users until we got feedback from long tail users. That is a very humbling lesson.
 
@@ -155,6 +179,8 @@ This isn't people being stupid and not realizing that you're supposed to walk on
 
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # The Curse of Knowledge
 
 <img src="external-images/charades-modified.jpg"
@@ -188,3 +214,4 @@ Notes:
 One last benefit I'd like to highlight about having a large user base is that as the size of your user base gets bigger, you start seeing problems that you may never have thought to test for, because they're not something you would experience in your daily life — but they are the reality for many people. For example, apparently when your WhatsApp interface is set to a language that is written right-to-left, playing a voice message makes the progress bar move in *both directions*. Evidently one of these indicators is implemented in something sensitive to RTL markers and the other isn't.
 
 Maybe you've thought to test for this, and maybe you've thought to test that your thing works with a screen reader, and that it's colorblind-friendly, but the world is a wide and varied place, and likely you'll find that your users are telling you about some interesting way of being human that you've overlooked.
+
