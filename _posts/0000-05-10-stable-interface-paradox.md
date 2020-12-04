@@ -7,9 +7,7 @@ The smaller the user base, the harder it is to design an appropriate interface, 
 
 Notes:
 
-Which brings us to the nominal subject of the talk, which I'm calling the Stable Interface Paradox, which is my observation that the smaller your user base is, the harder it is to design the right interface, but the larger your user base, the harder it is to change your interface.
-
-This is to say that you can't know what the final product should look like before you get it to your customers, but once you've got it in front of your customers, you can't change it!
+Which brings us back to the nominal subject of the talk. The smaller your user base, the harder it is to know what your interface should look like, but the larger your user base, the harder it is to change your interface. It's a catch-22: you can't know what your final product should look like before you get it in front of your customers, but once you've got it in front of them, you can't change it!
 
 --
 
