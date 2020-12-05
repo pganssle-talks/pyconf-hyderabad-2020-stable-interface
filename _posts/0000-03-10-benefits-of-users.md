@@ -7,7 +7,9 @@ Notes:
 
 Some of you are probably familiar with this saying popular in the open source community that given enough eyeballs, all bugs are shallow. From what I can tell, this is primarily used to mean that when you have a large community reviewing patches and source code, someone is bound to notice when something goes wrong and be able to fix it.
 
-I think there's another reasonable way to interpret this, though, and it's one that resonates deeply with my experience — when you have a large number of *users* deploying your application or library or whatever, they'll eventually hit all your bugs — even the most obscure ones. With another few orders of magnitude more users, they might even report those edge cases back to you in some useful format.
+I think there's another reasonable way to interpret this, though, and it's one that resonates deeply with my experience — when you have a large number of *users* deploying your application or library or whatever, they'll eventually hit all your bugs — even the most obscure ones.
+
+With another few orders of magnitude **more** users, they might even *report* those edge cases back to you in some useful format.
 
 --
 
@@ -29,14 +31,9 @@ Notes:
 
 I was recently reminded of an excellent example of this that came up on the `setuptools` project this year. `setuptools` is over 15 years old at this point and is downloaded something like 2 million times *every day*, and back in May someone reported a very strange bug that as far as I know had been present for a long time, but no one had ever hit it, or at least hit it and then reported it.
 
-To summarize the issue, a user showed up and said that in an executable he was building, `pkg_resources` would fail on his workstation and *only* his workstation — it even worked on other user accounts on the same machine!
+To summarize the issue, a user showed up and said that in an executable he was building, `pkg_resources` would fail on his workstation and only *his* workstation — it even worked on other user accounts on the same machine!
 
-It turns out that this is a *razor thin* edge case, which depended on:
-
-- The way he was invoking the executable
-- The fact that the user was on Windows
-- The fact that Windows was using some weird old compatibility interface to name its temporary folders.
-- The USER'S LAST NAME.
+It turns out that this is a *razor thin* edge case, which depended on a bunch of strange conditions, one of which was his actual lastname.
 
 You see, the user's name is A. Eggenberger and his username is `a.eggenberger` — I'm not sure which of these two related facts is the relevant one, but the consequence is that the default name of his temporary folder was this weird thing using the old 8.3 convention, where files and folders could only have 8 letters, followed by a dot, followed by a 3-letter extension. Because his last name is Eggenberger, that folder name ended with `.EGG`, which was, coincidentally, an extension that `pkg_resources` was using the detect whether it was currently in a Python "egg" package. Since his temporary folder is not actually an egg package, this caused `pkg_resources` to fail with an error.
 
@@ -107,16 +104,16 @@ datetime.datetime(2020, 12, 5, 11, 30, tzinfo=datetime.timezone.utc)
 
 Notes:
 
-One last example from CPython is this bug. The problem here was that if you  made a subclass of the `datetime.datetime` class and called `fromtimestamp()` it would return an instance of your subclass, as you'd expect, but if you passed it any sort of time zone object, like `datetime.timezone.utc`, it would return a plain `datetime.datetime` object.
+The last example bug is also from CPython. The problem here was that the `.fromtimestamp()` constructor, when called on a subclass of `datetime`, was inconsistent about whether it returned an instance of the subclass or an instance of the base class, `datetime`. If you called it without a time zone, it would give you the subclass, but if you gave it a time zone, it would return the base class.
 
 This was happening because `.fromtimestamp()` uses datetime arithmetic if it needs to calculate UTC offsets, and at the time, `datetime` arithmetic *always* returned a `datetime.datetime`, even in subclasses. You had to explicitly override the arithmetic dunder methods to get them to return your subclass, and there were a bunch of places where it was hard to predict what you were getting, so you ended up having to implement all the methods of `datetime` just to get them to always return your subclass.
 
-This is another one of those things that only happens when you get enough users, because it's only once the audience gets large enough that you have niche users for whom the standard library `datetime` class doesn't quite work, or when the audience for Python programs gets big enough that it would make sense to provide a third-party library that inherits from `datetime`, but in this case there are other implications, because it turns out that at least some of these bugs were actually *deliberate design decisions* — in the standard library at least, they don't assume that subclasses must implement a constructor taking the same arguments as the base class, and the solution to this is that any methods that need to return an instance of the class itself will always return an instance of the base class.
+The thing is, the root of this bug turned out to be a *deliberate design decision*. In the standard library, most classes and builtins that offer alternate constructors will return an instance of the base class, not the derived class. One of the reasons for this is that subclasses are allowed to change their constructor, and so the base class can't know how to construct the subclass. The recommendation is that if you want the alternate constructors to return an instance of your subclass, you should explicitly override them.
 
 --
 
 <span style="font-size: 3.5em; font-weight: bold">
-Perfect prediction is impossible.
+Predicting user priorities is difficult.
 </span>
 
 Notes:
