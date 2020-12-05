@@ -14,6 +14,17 @@ This is Hyrum's Law, which is something I bring up very frequently in design dis
 
 What this means, basically, is that, frequently, your bugs end up as "load-bearing bugs", and people start depending on behaviors that, were you designing them from scratch, would be considered bugs.
 
+--
+
+<img src="images/excel.png"
+     alt="A screenshot of Excel indicating that 1900-02-28 is stored as 59, and 1900-03-01 is stored as 61"
+     id="splash"
+     />
+
+<div class="caption">1900 is not a leap year</div>
+
+Notes:
+
 For example, Joel Spolsky has a blog post called ["My First BillG review"](https://www.joelonsoftware.com/2006/06/16/my-first-billg-review/) where he explains that there's a peculiarity in the way Excel and Visual Basic handle datetime offsets — Excel uses January 1, 1900 as its "epoch" and Visual Basic uses December 31st, 1899, but for modern dates, the "offset from epoch" is always the same. It turns out that the reason for this is that Excel has a bug where it considers 1900 a leap year, but that this bug was not only not fixed but also *intentionally introduced* so that Excel could be compatible with Lotus 123 spreadsheets, which also had the same bug. Presumably the odd choice of epoch for Visual Basic was also made so that Visual Basic could be both correct for pre-1900 dates and also compatible with Excel for modern dates.
 
 This is the flip side of having a large number of users — backwards compatibility concerns tend to dramatically curtail the available options you have for changing your interface.
@@ -148,37 +159,48 @@ The problem is that most things here were being done in an ad hoc fashion. Peopl
 
 --
 
-# Packaging Problems
+# Packaging Problems: The Tangled Web
+<br/>
 
-- Installing a package requires executing `setup.py`
-    - Arbitrary code execution... often as root!
-    - Compilation is time consuming, but no standards exist for distributing or installing binaries.
-    - No way to specify dependencies for `setup.py` <sup>†</sup>
-      <br/><br/>
+<style>
+ul.spaced-out li {
+    padding-bottom: 0.5em;
+    font-size: 1.5em;
+}
 
-- `distutils`
-    - Largely unmaintained because of the long release cadences and the fact that changes would break arbitrary packages.
-    - A sprawling module with a bunch of stuff unrelated to build code.
-      <br/><br/>
+ul.inner-spaced-out li {
+    margin-left: 50px;
+    font-size: 1em;
+}
 
-- `setuptools`
-    - Monkey-patches `distutils` on import
-    - Also integrated with `pkg_resources` and `easy_install`
-      <br/><br/>
+</style>
 
-- `pip`:
-    - Always injects `import setuptools` as part of installation and build
-    - Executes `setup.py` commands
-      <br/><br/>
-
-- `distribute`: Imported as `import setuptools`
-  <br/><br/>
-
-<span style="font-size: 0.25em"><sup>†</sup>Sort of</span>
+<ul class="spaced-out">
+    <li><b><tt>distribute</tt></b>: Imported as <tt>import setuptools</tt></li>
+    <li><b><tt>setuptools</tt></b>: Monkey-patches <tt>distutils</tt></li>
+    <li><b><tt>pip</tt></b>: Always injected <tt>import setuptools</tt> into <tt>setup.py</tt> commands</li>
+</ul>
 
 --
 
-<div class="fragment fade-out nospace-fragment disappearing-fragment" data-fragment-index="0">
+# Packaging Problems: Churn
+
+<br/>
+
+<ul class="spaced-out">
+    <li><tt>distutils</tt>: <span style="color: red"><strong>✘</strong>Frozen, deprecated</span></li>
+    <li><tt>distribute</tt>: <span style="color: orange"><strong>○</strong>Merged into <tt>setuptools</tt></span> </li>
+    <li><tt>distutils2</tt>: <span style="color: red"><strong>✘</strong>Abandoned</span></li>
+    <li><tt>setuptools</tt>: <span style="color: green">✔ Maintained</span><ul class="inner-spaced-out">
+        <li>Most <tt>setup.py</tt> commands: <span style="color: orange"><strong>✘</strong>Deprecated or Removed</span>
+        <li><tt>easy_install</tt>: <span style="color: orange"><strong>✘</strong>Deprecated</span>
+        <li><tt>pkg_resources</tt>: <span style="color: orange"><strong>✘</strong>Semi-deprecated</span>
+    </ul></li>
+    <li><tt>pip</tt>: <span style="color: green">✔ Maintained</span></li>
+</ul>
+
+--
+
 <img src="images/pep517-pep.png"
      alt="PEP 517 -- A build-system independent format for source trees, Created 30-Sep-2015" />
  <br/>
@@ -186,12 +208,6 @@ The problem is that most things here were being done in an ad hoc fashion. Peopl
 <img src="images/pep518-pep.png"
      alt="PEP 518 -- Specifying Minimum Build System Requirements for Python Projects, Created 10-May-2016"
      />
-</div>
-<div class="fragment fade-in disappearing-fragment nospace-fragment" data-fragment-index="0">
-<img src="images/pep632-pep.png"
-     alt="PEP 632 -- Deprecate distutils module"
-     />
-</div>
 
 - [**PEP 440**](https://www.python.org/dev/peps/pep-0440) - *Version Identification and Dependency Specification*
 - [**PEP 453**](https://www.python.org/dev/peps/pep-0453) - *Explicit bootstrapping of pip in Python installations*

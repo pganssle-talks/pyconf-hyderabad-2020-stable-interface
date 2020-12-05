@@ -23,10 +23,42 @@ Notes:
 
 Hi everyone! Welcome to my talk!
 
+--
+
+<!-- .slide: class="not-centered" -->
+
+# Paul Ganssle
+<br style="margin-bottom: 40px"/>
+
+- Software Engineer at Google (NYC office)
+- Maintainer of `python-dateutil` (PyPI: 50M downloads/month)
+- Maintainer of `setuptools` (PyPI: 62M downloads/month)
+- Python Core Developer
+- Contributor to many other OSS projects
+
+<br/>
+
+
+<div style="width: 100%; text-align: center; margin-top: 150px">
+<table>
+<tr>
+<td><strong>Website:</strong> <a href="https://ganssle.io">https://ganssle.io</a></td>
+<td><strong>Github / Twitter:</strong> @pganssle</td>
+</tr><tr>
+<td><strong>Blog:</strong> <a href="https://blog.ganssle.io">https://blog.ganssle.io</a></td>
+<td><strong>Fediverse:</strong> <a href="https://qoto.org/@pganssle">@pganssle@qoto.org</a></td>
+</tr>
+</table>
+</div>
+
+
+
+Notes:
+
 As the slide says, I'm Paul Ganssle. I'm a software engineer at Google and a contributor to many open source projects. Among other things, I maintain dateutil and setuptools, and I'm a core developer of the Python language, where much of my work has been focused on the `datetime` module (and now, the `zoneinfo` module).
 
-Today I'm going to talk about what I'm calling the Stable Interface Paradox, which is something that I think comes up a lot with big, popular projects like the ones I work on, but as you'll see, it's a problem that first manifests *before* you library, application or API endpoint gets popular.
+Today I'm going to talk about what I'm calling the Stable Interface Paradox, which is something that I think comes up a lot with big, popular projects like the ones I work on, but as you'll see, it's a problem that first manifests *before* your library, application or API endpoint gets popular.
 
-But before we get into all that, I thought I'd take a moment to appreciate the fact that I'm giving this talk. See, this is actually my first keynote! I was thrilled and flattered when the organizers asked me to speak at the conference, and I'm really excited to share this experience with you.
+But before we get into all that, I thought I'd take a moment to appreciate the fact that I'm giving this talk. You See, this is actually my first keynote! I hope that you won't take that in the same way you would if your pilot said, "This is actually my first flight!" or if your doctor said, "Wow, I've never taken out someone's appendix before!" Rather, I hope you'll just share in my excitement to do a great job today. Indeed, I was thrilled and flattered when the organizers asked me to speak at the conference, and I'm really excited to share this experience with you.
 
 Thing is, though, I'm still a little sad that this didn't involve actually visiting Hyderabad, so I'd start by recreating the experience at home.

@@ -69,11 +69,43 @@ Notes:
 
 Hi everyone! Welcome to my talk!
 
+--
+
+<!-- .slide: class="not-centered" -->
+
+# Paul Ganssle
+<br style="margin-bottom: 40px"/>
+
+- Software Engineer at Google (NYC office)
+- Maintainer of `python-dateutil` (PyPI: 50M downloads/month)
+- Maintainer of `setuptools` (PyPI: 62M downloads/month)
+- Python Core Developer
+- Contributor to many other OSS projects
+
+<br/>
+
+
+<div style="width: 100%; text-align: center; margin-top: 150px">
+<table>
+<tr>
+<td><strong>Website:</strong> <a href="https://ganssle.io">https://ganssle.io</a></td>
+<td><strong>Github / Twitter:</strong> @pganssle</td>
+</tr><tr>
+<td><strong>Blog:</strong> <a href="https://blog.ganssle.io">https://blog.ganssle.io</a></td>
+<td><strong>Fediverse:</strong> <a href="https://qoto.org/@pganssle">@pganssle@qoto.org</a></td>
+</tr>
+</table>
+</div>
+
+
+
+Notes:
+
 As the slide says, I'm Paul Ganssle. I'm a software engineer at Google and a contributor to many open source projects. Among other things, I maintain dateutil and setuptools, and I'm a core developer of the Python language, where much of my work has been focused on the `datetime` module (and now, the `zoneinfo` module).
 
-Today I'm going to talk about what I'm calling the Stable Interface Paradox, which is something that I think comes up a lot with big, popular projects like the ones I work on, but as you'll see, it's a problem that first manifests *before* you library, application or API endpoint gets popular.
+Today I'm going to talk about what I'm calling the Stable Interface Paradox, which is something that I think comes up a lot with big, popular projects like the ones I work on, but as you'll see, it's a problem that first manifests *before* your library, application or API endpoint gets popular.
 
-But before we get into all that, I thought I'd take a moment to appreciate the fact that I'm giving this talk. See, this is actually my first keynote! I was thrilled and flattered when the organizers asked me to speak at the conference, and I'm really excited to share this experience with you.
+But before we get into all that, I thought I'd take a moment to appreciate the fact that I'm giving this talk. You See, this is actually my first keynote! I hope that you won't take that in the same way you would if your pilot said, "This is actually my first flight!" or if your doctor said, "Wow, I've never taken out someone's appendix before!" Rather, I hope you'll just share in my excitement to do a great job today. Indeed, I was thrilled and flattered when the organizers asked me to speak at the conference, and I'm really excited to share this experience with you.
 
 Thing is, though, I'm still a little sad that this didn't involve actually visiting Hyderabad, so I'd start by recreating the experience at home.
 
@@ -100,9 +132,9 @@ I hope the organizers aren't starting to regret giving me an hour to pontificate
 
 Notes:
 
-Obviously going to conferences isn't all fun and games and Hyderabad is 18 hours away. I wouldn't want to miss out on that experience!
+Obviously going to conferences isn't all fun and games and Hyderabad is 18 hours away from New York. I wouldn't want to miss out on that experience!
 
-You can't see it here, but since I do have a 2-year-old in my house, I was able to accurately simulate the experience of a toddler on the plane screaming and kicking the back of your seat as well.
+You can't see it here, but since I do have a 2-year-old in my house, I was able to accurately simulate the experience of a toddler on the plane screaming and kicking the back of your seat while you're trying to sleep.
 
 --
 
@@ -199,7 +231,7 @@ Now I'm not much of a sports guy, but I figured the best way to fit in with the 
 
  Notes:
 
-Of course, I've been told that Hyderabad is called the City of Nawabs and Kebabs, so you know food is going to feature prominently in any good conference, so I thought I'd make some famous Hyderabadi haleem.
+Of course, I've been told that Hyderabad is called the City of Nawabs and Kebabs, so you know food is going to feature prominently in any good conference, so I thought I'd make some famous Hyderabadi haleem. I know it's not in season right now, but that's one up side of doing it at home — you can make it whenever you want.
 
 Of course, I didn't have exactly have all the right ingredients or like... a recipe, so I had to get a little creative, but based on a google image search, I'm pretty sure my version is pretty close to what I would have gotten in Hyderabad. Pretty good!
 
@@ -212,20 +244,40 @@ But now that we've hopefully exorcised some of our frustrations with the current
 				
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
-<span style="font-size: 3.5em; font-weight: bold">
-You will make mistakes when designing your interface.
-</span>
+# The Stable Interface Paradox
+<br/>
+
+<blockquote class="callout">
+The smaller the user base, the harder it is to design an appropriate interface, but the larger the user base, the harder it is to change your interface.
+</blockquote>
 
 Notes:
 
+What I'd like to talk to you about today is what I'm calling "the stable interface paradox". It's a phenomenon that I've observed in my open source work, but I think the phenomenon applies widely. The paradox is that the smaller your user base, the harder it is to design an appropriate interface, but the larger the user base, the harder it is to *change* that interface. This means that you are almost always best able to implement decisions about your interface *before* you have sufficient information to *make* those decisions. It means that a lot of interface design ends up as educated guesswork. It also means that you will almost always make some wrong decisions that will be very hard to change in the future.
 
 --
 
 <span style="font-size: 3.5em; font-weight: bold">
-You'll probably realize what your mistakes were too late.
+Users want stable interfaces!
 </span>
 
 Notes:
+
+I think there are two main phenomena that drive the stable interface paradox. The first is that users want stable interfaces! I'm sure that this is intuitive to almost all of us, because we all use dozens of interfaces per day. It would be *supremely annoying* to wake up one day and find that you can't buy keyboards in your preferred layout anymore. If someone was offering an API endpoint, but they said that they would randomly change the interface at least once a month, there would need to be something extremely valuable at that endpoint for you to build anything on top of it, since it would be a significant maintenance burden to be constantly re-implementing your client.
+
+Even smaller changes can be problematic, because as I mentioned, we're all surrounded by interfaces, and lots of small changes add up quickly. If you use 200 interfaces daily and each one of them breaks something once every 3 years, that means something you rely on is breaking *at least once a week*!
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Good interfaces are the product of user feedback.
+</span>
+
+Notes:
+
+The other side of this tension is possibly less intuitive, and that's that you usually don't have enough information to design your interface until you have a lot of users. The reason for this is that almost all products do or should measure their success in user satisfaction. Whether it's an open source library or paid software, you should want to provide a useful and enjoyable experience, and the best way to find out if you're providing something useful is to observe, listen to and learn from the people using it.
+
+And the thing is, this is not something you can solve with a few focus groups. I would argue that you need a fairly large user base to truly understand how well-designed your interface is.
 
 					</textarea>
 				</section>
@@ -241,7 +293,9 @@ Notes:
 
 Some of you are probably familiar with this saying popular in the open source community that given enough eyeballs, all bugs are shallow. From what I can tell, this is primarily used to mean that when you have a large community reviewing patches and source code, someone is bound to notice when something goes wrong and be able to fix it.
 
-I think there's another reasonable way to interpret this, though, and it's one that resonates deeply with my experience — when you have a large number of *users* deploying your application or library or whatever, they'll eventually hit all your bugs — even the most obscure ones. With another few orders of magnitude more users, they might even report those edge cases back to you in some useful format.
+I think there's another reasonable way to interpret this, though, and it's one that resonates deeply with my experience — when you have a large number of *users* deploying your application or library or whatever, they'll eventually hit all your bugs — even the most obscure ones.
+
+With another few orders of magnitude **more** users, they might even *report* those edge cases back to you in some useful format.
 
 --
 
@@ -254,7 +308,7 @@ I think there's another reasonable way to interpret this, though, and it's one t
 <br/>
 
 <ul>
-<li class="fragment">User's name is Adrian Eggenberger, so his username is <tt>a.eggenberger</tt></li>
+<li class="fragment">User's name is A. Eggenberger, so his username is <tt>a.eggenberger</tt></li>
 <li class="fragment">Default temporary folder is <tt>C:\Users\A9447~1.EGG</tt></li>
 <li class="fragment"><tt>pkg_resources</tt> considers a folder to be an "egg" if its name ends in <tt>.egg</tt></li>
 </ul>
@@ -263,16 +317,19 @@ Notes:
 
 I was recently reminded of an excellent example of this that came up on the `setuptools` project this year. `setuptools` is over 15 years old at this point and is downloaded something like 2 million times *every day*, and back in May someone reported a very strange bug that as far as I know had been present for a long time, but no one had ever hit it, or at least hit it and then reported it.
 
-To summarize the issue, a user showed up and said that in an executable he was building, `pkg_resources` would fail on his workstation and *only* his workstation — it even worked on other user accounts on the same machine!
+To summarize the issue, a user showed up and said that in an executable he was building, `pkg_resources` would fail on his workstation and only *his* workstation — it even worked on other user accounts on the same machine!
 
-It turns out that this is a *razor thin* edge case, which depended on:
+It turns out that this is a *razor thin* edge case, which depended on a bunch of strange conditions, one of which was his actual lastname.
 
-- The way he was invoking the executable
-- The fact that the user was on Windows
-- The fact that Windows was using some weird old compatibility interface to name its temporary folders.
-- The USER'S LAST NAME.
+You see, the user's name is A. Eggenberger and his username is `a.eggenberger` — I'm not sure which of these two related facts is the relevant one, but the consequence is that the default name of his temporary folder was this weird thing using the old 8.3 convention, where files and folders could only have 8 letters, followed by a dot, followed by a 3-letter extension. Because his last name is Eggenberger, that folder name ended with `.EGG`, which was, coincidentally, an extension that `pkg_resources` was using the detect whether it was currently in a Python "egg" package. Since his temporary folder is not actually an egg package, this caused `pkg_resources` to fail with an error.
 
-You see, the user's name is Adrian Eggenberger and his username is `a.eggenberger` — I'm not sure which of these two related facts is the relevant one, but the consequence is that the default name of his temporary folder was this weird thing using the old 8.3 convention, where files and folders could only have 8 letters, followed by a dot, followed by a 3-letter extension. Because his last name is Eggenberger, that folder name ended with `.EGG`, which was, coincidentally, an extension that `pkg_resources` was using the detect whether it was currently in a Python "egg" package. Since his temporary folder is not actually an egg package, this caused `pkg_resources` to fail with an error.
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+What's unusual about this situation is that we heard about it.
+</span>
+
+Notes:
 
 The user was able to work around this by changing the name of his temporary folder, and Jason fixed the bug with some better egg detection routines, but you can imagine there are probably similar bugs lurking around out there all over the place, just waiting to frustrate people to no end. What's unusual about this situation is that we heard about it.
 
@@ -301,6 +358,15 @@ This one was a fairly benign one, which is probably why it took so long to get f
 
 This bug is caused because during the first step — when the bytecode is compiled — it also goes through an optimization step, and if you use `if 0` or `while False` or any other sort of conditional with a literal false value, the optimizer knows that it's dead code and simply removes it — it emits no byte code, and as such it misses that second check for syntactic validity.
 
+--
+
+
+<span style="font-size: 3.5em; font-weight: bold">
+Some bugs only show up once you've built an ecosystem.
+</span>
+
+Notes:
+
 The thing about this kind of bug, though, is that really the only people who noticed it were people trying to implement their own versions of Python, or other rather abstruse things that depend on Python having such a large number of people that it would make sense for two people to implement the same protocol, or to build the other kinds of things — parsers, linters, code formatters, etc — where you'd actually notice this kind of thing.
 
 --
@@ -322,17 +388,24 @@ datetime.datetime(2020, 12, 5, 11, 30, tzinfo=datetime.timezone.utc)
 ```
 <!-- .element: class="fragment" style="max-width: 60%; border: solid 1px" -->
 
-
-
 Notes:
 
-One last example from CPython is this bug. The problem here was that if you  made a subclass of the `datetime.datetime` class and called `fromtimestamp()` it would return an instance of your subclass, as you'd expect, but if you passed it any sort of time zone object, like `datetime.timezone.utc`, it would return a plain `datetime.datetime` object.
+The last example bug is also from CPython. The problem here was that the `.fromtimestamp()` constructor, when called on a subclass of `datetime`, was inconsistent about whether it returned an instance of the subclass or an instance of the base class, `datetime`. If you called it without a time zone, it would give you the subclass, but if you gave it a time zone, it would return the base class.
 
 This was happening because `.fromtimestamp()` uses datetime arithmetic if it needs to calculate UTC offsets, and at the time, `datetime` arithmetic *always* returned a `datetime.datetime`, even in subclasses. You had to explicitly override the arithmetic dunder methods to get them to return your subclass, and there were a bunch of places where it was hard to predict what you were getting, so you ended up having to implement all the methods of `datetime` just to get them to always return your subclass.
 
-This is another one of those things that only happens when you get enough users, because it's only once the audience gets large enough that you have niche users for whom the standard library `datetime` class doesn't quite work, or when the audience for Python programs gets big enough that it would make sense to provide a third-party library that inherits from `datetime`, but in this case there are other implications, because it turns out that at least some of these bugs were actually *deliberate design decisions* — in the standard library at least, they don't assume that subclasses must implement a constructor taking the same arguments as the base class, and the solution to this is that any methods that need to return an instance of the class itself will always return an instance of the base class.
+The thing is, the root of this bug turned out to be a *deliberate design decision*. In the standard library, most classes and builtins that offer alternate constructors will return an instance of the base class, not the derived class. One of the reasons for this is that subclasses are allowed to change their constructor, and so the base class can't know how to construct the subclass. The recommendation is that if you want the alternate constructors to return an instance of your subclass, you should explicitly override them.
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Predicting user priorities is difficult.
+</span>
+
+Notes:
 
 But what I've found, at least in the case of `datetime`, is that people find it *really annoying* to re-implement the base class's entire interface just to make sure their subclass's type is persistent, and they don't actually seem to care when you call the class constructor as if it's the base class. This is just one particularly unusual manifestation of a wider problem that people were constantly reporting (or working around), but in all the time we've had interfaces that return instances of the subclass, I've only ever seen one class broken by it, and that was fairly easy to work around.
+
 
 The people who originally designed Python and this system in general are extremely careful thinkers, and have exquisite design sensibilities. They got an enormous amount right, but they didn't predict that this would be a usability concern from their users until we got feedback from long tail users. That is a very humbling lesson.
 
@@ -389,6 +462,8 @@ This isn't people being stupid and not realizing that you're supposed to walk on
 
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # The Curse of Knowledge
 
 <img src="external-images/charades-modified.jpg"
@@ -443,6 +518,17 @@ So far, I'd say that we've only covered some of the benefits of a large and thri
 This is Hyrum's Law, which is something I bring up very frequently in design discussions (and as an aside I just recently learned it was formulated by one of my colleagues at Google!). Hyrum's law states that when the number of users of your API gets large enough, someone will depend on every observable behavior of your system.
 
 What this means, basically, is that, frequently, your bugs end up as "load-bearing bugs", and people start depending on behaviors that, were you designing them from scratch, would be considered bugs.
+
+--
+
+<img src="images/excel.png"
+     alt="A screenshot of Excel indicating that 1900-02-28 is stored as 59, and 1900-03-01 is stored as 61"
+     id="splash"
+     />
+
+<div class="caption">1900 is not a leap year</div>
+
+Notes:
 
 For example, Joel Spolsky has a blog post called ["My First BillG review"](https://www.joelonsoftware.com/2006/06/16/my-first-billg-review/) where he explains that there's a peculiarity in the way Excel and Visual Basic handle datetime offsets — Excel uses January 1, 1900 as its "epoch" and Visual Basic uses December 31st, 1899, but for modern dates, the "offset from epoch" is always the same. It turns out that the reason for this is that Excel has a bug where it considers 1900 a leap year, but that this bug was not only not fixed but also *intentionally introduced* so that Excel could be compatible with Lotus 123 spreadsheets, which also had the same bug. Presumably the odd choice of epoch for Visual Basic was also made so that Visual Basic could be both correct for pre-1900 dates and also compatible with Excel for modern dates.
 
@@ -578,37 +664,48 @@ The problem is that most things here were being done in an ad hoc fashion. Peopl
 
 --
 
-# Packaging Problems
+# Packaging Problems: The Tangled Web
+<br/>
 
-- Installing a package requires executing `setup.py`
-    - Arbitrary code execution... often as root!
-    - Compilation is time consuming, but no standards exist for distributing or installing binaries.
-    - No way to specify dependencies for `setup.py` <sup>†</sup>
-      <br/><br/>
+<style>
+ul.spaced-out li {
+    padding-bottom: 0.5em;
+    font-size: 1.5em;
+}
 
-- `distutils`
-    - Largely unmaintained because of the long release cadences and the fact that changes would break arbitrary packages.
-    - A sprawling module with a bunch of stuff unrelated to build code.
-      <br/><br/>
+ul.inner-spaced-out li {
+    margin-left: 50px;
+    font-size: 1em;
+}
 
-- `setuptools`
-    - Monkey-patches `distutils` on import
-    - Also integrated with `pkg_resources` and `easy_install`
-      <br/><br/>
+</style>
 
-- `pip`:
-    - Always injects `import setuptools` as part of installation and build
-    - Executes `setup.py` commands
-      <br/><br/>
-
-- `distribute`: Imported as `import setuptools`
-  <br/><br/>
-
-<span style="font-size: 0.25em"><sup>†</sup>Sort of</span>
+<ul class="spaced-out">
+    <li><b><tt>distribute</tt></b>: Imported as <tt>import setuptools</tt></li>
+    <li><b><tt>setuptools</tt></b>: Monkey-patches <tt>distutils</tt></li>
+    <li><b><tt>pip</tt></b>: Always injected <tt>import setuptools</tt> into <tt>setup.py</tt> commands</li>
+</ul>
 
 --
 
-<div class="fragment fade-out nospace-fragment disappearing-fragment" data-fragment-index="0">
+# Packaging Problems: Churn
+
+<br/>
+
+<ul class="spaced-out">
+    <li><tt>distutils</tt>: <span style="color: red"><strong>✘</strong>Frozen, deprecated</span></li>
+    <li><tt>distribute</tt>: <span style="color: orange"><strong>○</strong>Merged into <tt>setuptools</tt></span> </li>
+    <li><tt>distutils2</tt>: <span style="color: red"><strong>✘</strong>Abandoned</span></li>
+    <li><tt>setuptools</tt>: <span style="color: green">✔ Maintained</span><ul class="inner-spaced-out">
+        <li>Most <tt>setup.py</tt> commands: <span style="color: orange"><strong>✘</strong>Deprecated or Removed</span>
+        <li><tt>easy_install</tt>: <span style="color: orange"><strong>✘</strong>Deprecated</span>
+        <li><tt>pkg_resources</tt>: <span style="color: orange"><strong>✘</strong>Semi-deprecated</span>
+    </ul></li>
+    <li><tt>pip</tt>: <span style="color: green">✔ Maintained</span></li>
+</ul>
+
+--
+
 <img src="images/pep517-pep.png"
      alt="PEP 517 -- A build-system independent format for source trees, Created 30-Sep-2015" />
  <br/>
@@ -616,12 +713,6 @@ The problem is that most things here were being done in an ad hoc fashion. Peopl
 <img src="images/pep518-pep.png"
      alt="PEP 518 -- Specifying Minimum Build System Requirements for Python Projects, Created 10-May-2016"
      />
-</div>
-<div class="fragment fade-in disappearing-fragment nospace-fragment" data-fragment-index="0">
-<img src="images/pep632-pep.png"
-     alt="PEP 632 -- Deprecate distutils module"
-     />
-</div>
 
 - [**PEP 440**](https://www.python.org/dev/peps/pep-0440) - *Version Identification and Dependency Specification*
 - [**PEP 453**](https://www.python.org/dev/peps/pep-0453) - *Explicit bootstrapping of pip in Python installations*
@@ -653,9 +744,7 @@ The smaller the user base, the harder it is to design an appropriate interface, 
 
 Notes:
 
-Which brings us to the nominal subject of the talk, which I'm calling the Stable Interface Paradox, which is my observation that the smaller your user base is, the harder it is to design the right interface, but the larger your user base, the harder it is to change your interface.
-
-This is to say that you can't know what the final product should look like before you get it to your customers, but once you've got it in front of your customers, you can't change it!
+Which brings us back to the nominal subject of the talk. The smaller your user base, the harder it is to know what your interface should look like, but the larger your user base, the harder it is to change your interface. It's a catch-22: you can't know what your final product should look like before you get it in front of your customers, but once you've got it in front of them, you can't change it!
 
 --
 
@@ -676,107 +765,6 @@ But still I do think it's useful to see the principle illustrated — even if th
 				
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
-# Second-mover advantage and Network Effects
-
-<img src="external-images/hermit-crabs.jpg"
-     alt="Several Hermit crabs on a beach on Howland Island NWR"
-     id="splash"
-     />
-
-					</textarea>
-				</section>
-				
-				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
-					<textarea data-template>
-<span style="font-size: 5em; font-weight: bold">What should we do?</span>
-
---
-
-# UX Research
-
-<img src="images/pip-ux-design.png"
-     alt="Screenshot from pip's documentation about the UX design research they are undertaking"
-     />
-
-<div class="caption"><tt>pip</tt> is undertaking <a href="https://pip.pypa.io/en/stable/ux_research_design/">UX Research</a> to anticipate user needs.</div>
-
-
---
-
-# Pre-releases
-
-<img src="external-images/python-release-cadence.png"
-     alt="A chart from PEP 602 illustrating Python's annual release cadence, including pre-alpha, alpha and beta phases."
-     style="max-height: 750px"
-     />
-
-<div class="caption">CPython makes extensive use of pre-releases.</div>
-
---
-
-# Provisional interfaces
-
-<div style="display: flex; flex-direction: column;">
-
-<img src="images/asyncio-provisional.png"
-     alt="The asyncio module was considered provisional in Python 3.5"
-     />
-
-<img src="images/pep484-type-hints.png"
-     alt="PEP 484: Type Hints, which was created in September 2014 but is still Provisional"
-     />
-
-<div class="caption">Marking an interface as provisional is a variation on pre-releases.</div>
-
-</div>
-
---
-
-# Deprecations
-
-<img src="images/easy_install_deprecated.png"
-     alt="A warning on the `easy_install` documentation indicating it is deprecated"
-     style="width: 1000px"
-     />
-<br/>
-<br/>
-<img src="images/setup-py-test-deprecated.png"
-     alt="A warning on the documentation for setup.py test indicating that it is deprecated"
-     style="width: 1000px"
-     />
-
-<br/>
-
-```
-$ python2.7 -m pip list
-DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python
-as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More
-details about Python 2 support in pip, can be found at
-https://pip.pypa.io/en/latest/development/release-process/#python-2-support
-
-Package    Version
----------- ------------
-pip        20.1.1
-setuptools 39.0.1
-```
-
---
-
-# Deprecations
-
-<img src="images/hn-comment-packaging.png"
-     alt="HN Comment, text reads: Python Packaging is not hard anymore \n Would you tell us which is the 'right way to do it' nowadays? Possibly, in a maintainable, kind-of-officially supported way that doesn't change or disappear in a few months? \n Please note​: I use Python professionally since 2005, I've been involved in a lot of Python packaging for production apps (including giving some talks on the bad state of Python packaging at Europython around 2010) and I had followed closely the then-failed distutils2 effort. And I still don't know what's the 'right and easy way to do it'."
-     />
-     <br/>
-     <br/>
-
-<img src="images/victor-stinner-twitter-20y.png"
-     alt="Tweet from Victor Stinner: I'm using Python for 20 years and I only know 'python http://setup.py install' or 'pip install something' commands. Hopefully, I didn't learn setup.cfg or pyproject.toml new things, since it seems like the latest hype packaging project is deprecated 6 months later :-)"
-     />
-
---
-
-
 <div style="font-size: 5em; font-weight: bold"
      class="fragment fade-out disappearing-fragment nospace-fragment"
      data-fragment-index="0"
@@ -798,15 +786,63 @@ What should we do?
 A secret bunker in Sweden where we can hide out from the consequences of our hubris.</div>
 </div>
 
-					</textarea>
-				</section>
-				
-				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
-					<textarea data-template>
+Notes:
+
+So, I've given you some problems, and maybe some advice about listening to your users — which of course I tempered with the dispiriting notion that even if you listen to your users you can't respond to their feedback anyway, so what do I think you should do?
+
+Well, I've got my eye on this bunker where we can all hide out as we wait for the inevitable downfall of civilization when the mad fever dream that was the general purpose computer finally comes to an end.
+
+But no, more seriously, I don't think that this is an apocalyptic vision. In fact, I don't even think it's particularly new.
+
+--
+
+<img src="external-images/carriages-modified.jpg"
+     alt="A road occupied by horses and carriages"
+     id="splash"
+     />
+
+<div class="caption">Roads were originally designed for a primitive form of car propelled by some sort of a four-legged ungulate.</div>
+
+Notes:
+
+Backwards compatibility and technical debt have existed since long before computers existed. There are thousands of miles of railroads laid with specific gauges all around the world that it would be incredibly expensive to change. At some point a network of roads originally designed for horses and carriages had to be retrofitted to accommodate cars and trucks.
+
+I don't think I have any one answer for you, but I can give you a few heuristics that I imagine most maintainers of large projects have internalized at least to some degree.
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Design for change.
+</span>
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Avoid tight coupling.
+</span>
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Minimize your public interface.
+</span>
+
+--
+
+<span style="font-size: 3.5em; font-weight: bold">
+Be decisive.
+</span>
+
+--
+
 <img src="external-images/vermeer-woman-with-a-balance-modified.jpg"
      alt="A cropped version of Johannes Vermeer's Woman with a Balance; a painting of a seemingly pregnant woman holding a small balance scale. (Scholarly opinion is that she is not supposed to be pregnant for various reasons, but to modern eyes she looks heavily pregnant)."
      id="splash"
      />
+
+Notes:
+
+At the end of the day, though, the real lesson to be taken from the stable interface paradox is that because keeping a stable interface and responding to user feedback are in tension, there is no one right answer to how to run a project. These heuristics will help, but you will get into an uncomfortable position where you must balance stability against responding to user feedback.
 
 --
 
@@ -841,6 +877,51 @@ A secret bunker in Sweden where we can hide out from the consequences of our hub
      class="fragment nospace-fragment disappearing-fragment fade-in"
      data-fragment-index="0"
      />
+
+Notes:
+
+That brings me to the end of the talk, and usually at the end of a talk I like to reflect a little bit about the lessons learned.
+
+I think the biggest lesson I learned when putting this talk together, when trying to take my thoughts and put them into words and meaningful concepts was the importance of humility.
+
+Humility before your users, trying to explain that they have a valid perspective. And humility about the limits of your ability to design things.
+
+When looking at the task of designing something that is going to work for a hundred thousand or a million or ten million people — something that may need to run on desktop computers supercomputers, microcontrollers, on every continent on Earth and even possibly in space — I think the right reaction to that is view that with some sense of awe. This is not an easy thing to do, and no one could possibly get it right from the start. Even the greatest successes are littered with failures small and large.
+
+Still, I'd like to temper this with some hope, because people have been plagued by this problem for as long as there have been interfaces, and we somehow make do. It's something to be aware of, but it shouldn't paralyze you.
+
+And now I'm sure you want to know what's up with the monkey picture. Wracking your brain for how it could be a metaphor for something? Does the monkey represent an earlier version of humanity or something? Maybe his thoughtful gaze means reflection?
+
+NOPE! He's just a tricky monkey! Look at his little face, he's so happy to have tricked you into thinking he's a metaphor. Sly little devil.
+
+--
+
+<h1 style="font-size: 3em">The Stable Interface Paradox</h1>
+<br/>
+<br/>
+<br/>
+<span style="font-size: 2.5em">
+Paul Ganssle
+</span>
+<br/>
+<br/>
+<img src="images/pganssle-logos.svg" height="40px" alt="@pganssle">
+<br/>
+<br/>
+<span style="font-size: 1em;"><em>This talk on Github:
+<a href="https://github.com/pganssle-talks/pyconf-hyderabad-2020-stable-interface">pganssle-talks/pyconf-hyderabad-2020-stable-interface</a></em>
+</span>
+<br/>
+<a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="external-images/logos/cc-zero.svg" height="45px">
+</a>
+<br/>
+
+Notes:
+
+Ok, that's my time!
+
+I'm happy to answer any questions you may have, and I'm happy to continue the discussion in other venues — both in the virtual conference hall or on social media like twitter, but before I do any of that I want to sincerely thank the organizers for inviting me to speak, and to thank you all for coming to watch my keynote.
 
 					</textarea>
 				</section>

@@ -16,9 +16,9 @@ I hope the organizers aren't starting to regret giving me an hour to pontificate
 
 Notes:
 
-Obviously going to conferences isn't all fun and games and Hyderabad is 18 hours away. I wouldn't want to miss out on that experience!
+Obviously going to conferences isn't all fun and games and Hyderabad is 18 hours away from New York. I wouldn't want to miss out on that experience!
 
-You can't see it here, but since I do have a 2-year-old in my house, I was able to accurately simulate the experience of a toddler on the plane screaming and kicking the back of your seat as well.
+You can't see it here, but since I do have a 2-year-old in my house, I was able to accurately simulate the experience of a toddler on the plane screaming and kicking the back of your seat while you're trying to sleep.
 
 --
 
@@ -115,7 +115,7 @@ Now I'm not much of a sports guy, but I figured the best way to fit in with the 
 
  Notes:
 
-Of course, I've been told that Hyderabad is called the City of Nawabs and Kebabs, so you know food is going to feature prominently in any good conference, so I thought I'd make some famous Hyderabadi haleem.
+Of course, I've been told that Hyderabad is called the City of Nawabs and Kebabs, so you know food is going to feature prominently in any good conference, so I thought I'd make some famous Hyderabadi haleem. I know it's not in season right now, but that's one up side of doing it at home — you can make it whenever you want.
 
 Of course, I didn't have exactly have all the right ingredients or like... a recipe, so I had to get a little creative, but based on a google image search, I'm pretty sure my version is pretty close to what I would have gotten in Hyderabad. Pretty good!
 
